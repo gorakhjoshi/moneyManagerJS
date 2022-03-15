@@ -32,6 +32,10 @@ const accountOne = {
   pin: 1234,
 };
 
+// movements.reduce((acc, movement) => 300 + 1600, 0);
+// acc = 1900;
+// movement = 1600;
+
 const accountTwo = {
   movements: [1000, -600, 700, -300, 1300, -1100, 1600],
   owner: 'Shankar Poudel',
@@ -59,19 +63,30 @@ const createUsername = (accounts) => {
   });
 };
 
-createUsername(accounts);
-
-console.log(accountOne);
-
 const [{ movements }] = accounts;
 
-movements.forEach(function (mov, i) {
-  const type = mov > 0 ? 'deposite' : 'withdrawal';
-  const html = `<div class="movements__row">
+const displayMovements = (movements) => {
+  movements.forEach(function (mov, i) {
+    const type = mov > 0 ? 'deposite' : 'withdrawal';
+    const html = `<div class="movements__row">
           <div class="movements__type movements__type--${type}">
             ${i + 1} ${type}
           </div>
           <div class="movements__value">${mov}€</div>
         </div>`;
-  containerMovements.insertAdjacentHTML('afterbegin', html);
-});
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+const displayBalance = (movements) => {
+  labelBalance.textContent = `${movements.reduce(
+    (acc, movement) => acc + movement,
+    0
+  )} €`;
+};
+
+createUsername(accounts);
+displayMovements(movements);
+displayBalance(movements);
+
+console.log(movements);
