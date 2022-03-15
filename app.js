@@ -32,6 +32,28 @@ const accountOne = {
   pin: 1234,
 };
 
+// const arr = [1, 2];
+// arr.push(20);
+// console.log(arr);
+
+// accountOne.username = 'grj';
+// console.log(accountOne);
+
+// console.log(new String('Gorakh Raj Joshi'));
+
+const ownerLower = accountOne.owner.toLowerCase();
+// console.log(ownerLower);
+
+const arr = [1, 2, 3, 4, 5];
+
+const splitOwner = ownerLower.split(' ');
+
+console.log(
+  arr.map(function () {
+    return 'hello';
+  })
+);
+
 const accountTwo = {
   movements: [1000, -600, 700, -300, 1300, -1100, 1600],
   owner: 'Shankar Shrestha',
@@ -63,5 +85,3 @@ movements.forEach(function (mov, i) {
         </div>`;
   containerMovements.insertAdjacentHTML('afterbegin', html);
 });
-
-console.dir(containerMovements);
