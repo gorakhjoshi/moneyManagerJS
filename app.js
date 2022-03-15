@@ -32,51 +32,41 @@ const accountOne = {
   pin: 1234,
 };
 
-// const arr = [1, 2];
-// arr.push(20);
-// console.log(arr);
-
-// accountOne.username = 'grj';
-// console.log(accountOne);
-
-// console.log(new String('Gorakh Raj Joshi'));
-
-const ownerLower = accountOne.owner.toLowerCase();
-// console.log(ownerLower);
-
-const arr = [1, 2, 3, 4, 5];
-
-const splitOwner = ownerLower.split(' ');
-
-console.log(
-  arr.map(function () {
-    return 'hello';
-  })
-);
-
 const accountTwo = {
   movements: [1000, -600, 700, -300, 1300, -1100, 1600],
-  owner: 'Shankar Shrestha',
+  owner: 'Shankar Poudel',
   interestRate: 1.1,
   pin: 2222,
 };
 
-const accounts = [accountOne, accountTwo];
+const accountThree = {
+  movements: [1000, -600, 700, -300, 1300, -1100],
+  owner: 'Bishal Sharma',
+  interestRate: 1.3,
+  pin: 4444,
+  username: 'bs',
+};
+
+const accounts = [accountOne, accountTwo, accountThree];
+
+const createUsername = (accounts) => {
+  accounts.forEach((account) => {
+    account.username = account.owner
+      .toLowerCase()
+      .split(' ')
+      .map((name) => name[0])
+      .join('');
+  });
+};
+
+createUsername(accounts);
+
+console.log(accountOne);
 
 const [{ movements }] = accounts;
 
-// < 0 => withdrawal
-// > 0 => deposit
-
 movements.forEach(function (mov, i) {
-  // const type = if (mov > 0) {
-  //   console.log('deposit');
-  // } else {
-  //   console.log('withdrawal');
-  // }
-
   const type = mov > 0 ? 'deposite' : 'withdrawal';
-
   const html = `<div class="movements__row">
           <div class="movements__type movements__type--${type}">
             ${i + 1} ${type}
