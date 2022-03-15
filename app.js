@@ -89,4 +89,14 @@ createUsername(accounts);
 displayMovements(movements);
 displayBalance(movements);
 
-console.log(movements);
+const depositsSum = movements
+  .filter((mov) => mov > 0)
+  .reduce((acc, mov) => acc + mov, 0);
+
+const withdrawalSum = movements
+  .filter((mov) => mov < 0)
+  .reduce((acc, mov) => acc + mov, 0);
+
+labelSumIn.textContent = `${depositsSum}€`;
+
+labelSumOut.textContent = `${withdrawalSum}€`;
