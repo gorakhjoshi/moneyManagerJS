@@ -63,7 +63,7 @@ const createUsername = (accounts) => {
   });
 };
 
-const [{ movements }] = accounts;
+const [{ movements, interestRate }] = accounts;
 
 const displayMovements = (movements) => {
   movements.forEach(function (mov, i) {
@@ -85,18 +85,30 @@ const displayBalance = (movements) => {
   )} €`;
 };
 
+const displaySummary = (movements, rate) => {
+  const depositsSum = movements
+    .filter((mov) => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+
+  const withdrawalSum = movements
+    .filter((mov) => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+
+  const interest = movements
+    .filter((mov) => mov > 0)
+    .map((deposit) => +(deposit * (rate / 100)).toFixed(2))
+    .reduce((acc, int) => acc + int, 0);
+
+  console.log(interest);
+
+  labelSumIn.textContent = `${depositsSum}€`;
+
+  labelSumOut.textContent = `${withdrawalSum}€`;
+
+  labelSumInterest.textContent = interest;
+};
+
 createUsername(accounts);
 displayMovements(movements);
 displayBalance(movements);
-
-const depositsSum = movements
-  .filter((mov) => mov > 0)
-  .reduce((acc, mov) => acc + mov, 0);
-
-const withdrawalSum = movements
-  .filter((mov) => mov < 0)
-  .reduce((acc, mov) => acc + mov, 0);
-
-labelSumIn.textContent = `${depositsSum}€`;
-
-labelSumOut.textContent = `${withdrawalSum}€`;
+displaySummary(movements, interestRate);
