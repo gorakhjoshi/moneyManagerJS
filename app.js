@@ -40,15 +40,14 @@ const accountTwo = {
   movements: [1000, -600, 700, -300, 1300, -1100, 1600],
   owner: 'Shankar Poudel',
   interestRate: 1.1,
-  pin: 2222,
+  pin: 4444,
 };
 
 const accountThree = {
   movements: [1000, -600, 700, -300, 1300, -1100],
   owner: 'Bishal Sharma',
   interestRate: 1.3,
-  pin: 4444,
-  username: 'bs',
+  pin: 2222,
 };
 
 const accounts = [accountOne, accountTwo, accountThree];
@@ -99,8 +98,6 @@ const displaySummary = (movements, rate) => {
     .map((deposit) => +(deposit * (rate / 100)).toFixed(2))
     .reduce((acc, int) => acc + int, 0);
 
-  console.log(interest);
-
   labelSumIn.textContent = `${depositsSum}€`;
 
   labelSumOut.textContent = `${withdrawalSum}€`;
@@ -112,3 +109,19 @@ createUsername(accounts);
 displayMovements(movements);
 displayBalance(movements);
 displaySummary(movements, interestRate);
+
+// btnLogin;
+
+btnLogin.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const currentAccount = accounts.find(
+    (account) => account.pin === +inputLoginPin.value
+  );
+
+  console.log(labelWelcome);
+
+  if (currentAccount) {
+    labelWelcome.textContent = `Welcome ${currentAccount.owner}`;
+  }
+});
