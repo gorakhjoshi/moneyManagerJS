@@ -32,9 +32,13 @@ const accountOne = {
   pin: 1234,
 };
 
+// movements.reduce((acc, movement) => 300 + 1600, 0);
+// acc = 1900;
+// movement = 1600;
+
 const accountTwo = {
   movements: [1000, -600, 700, -300, 1300, -1100, 1600],
-  owner: 'Shankar Shrestha',
+  owner: 'Shankar Poudel',
   interestRate: 1.1,
   pin: 2222,
 };
@@ -45,25 +49,52 @@ const accounts = [accountOne, accountTwo];
 
 const [{ movements }] = accounts;
 
-// < 0 => withdrawal
-// > 0 => deposit
+const accounts = [accountOne, accountTwo, accountThree];
 
-movements.forEach(function (mov, i) {
-  // const type = if (mov > 0) {
-  //   console.log('deposit');
-  // } else {
-  //   console.log('withdrawal');
-  // }
+const createUsername = (accounts) => {
+  accounts.forEach((account) => {
+    account.username = account.owner
+      .toLowerCase()
+      .split(' ')
+      .map((name) => name[0])
+      .join('');
+  });
+};
 
-  const type = mov > 0 ? 'deposite' : 'withdrawal';
+const [{ movements }] = accounts;
 
-  const html = `<div class="movements__row">
+const displayMovements = (movements) => {
+  movements.forEach(function (mov, i) {
+    const type = mov > 0 ? 'deposite' : 'withdrawal';
+    const html = `<div class="movements__row">
           <div class="movements__type movements__type--${type}">
             ${i + 1} ${type}
           </div>
           <div class="movements__value">${mov}€</div>
         </div>`;
-  containerMovements.insertAdjacentHTML('afterbegin', html);
-});
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
 
-console.dir(containerMovements);
+const displayBalance = (movements) => {
+  labelBalance.textContent = `${movements.reduce(
+    (acc, movement) => acc + movement,
+    0
+  )} €`;
+};
+
+createUsername(accounts);
+displayMovements(movements);
+displayBalance(movements);
+
+const depositsSum = movements
+  .filter((mov) => mov > 0)
+  .reduce((acc, mov) => acc + mov, 0);
+
+const withdrawalSum = movements
+  .filter((mov) => mov < 0)
+  .reduce((acc, mov) => acc + mov, 0);
+
+labelSumIn.textContent = `${depositsSum}€`;
+
+labelSumOut.textContent = `${withdrawalSum}€`;
