@@ -39,6 +39,8 @@ const accountTwo = {
   pin: 2222,
 };
 
+const test = [testOne, testTwo];
+
 const accounts = [accountOne, accountTwo];
 
 const [{ movements }] = accounts;
