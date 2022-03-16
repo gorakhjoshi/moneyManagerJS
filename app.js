@@ -43,11 +43,13 @@ const accountTwo = {
   pin: 2222,
 };
 
-const test = [testOne, testTwo];
-
-const accounts = [accountOne, accountTwo];
-
-const [{ movements }] = accounts;
+const accountThree = {
+  movements: [1000, -600, 700, -300, 1300, -1100],
+  owner: 'Bishal Sharma',
+  interestRate: 1.3,
+  pin: 4444,
+  username: 'bs',
+};
 
 const accounts = [accountOne, accountTwo, accountThree];
 
