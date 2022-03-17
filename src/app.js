@@ -14,6 +14,12 @@ createUsername(accounts);
 
 let currentAccount;
 
+const updateUI = () => {
+  displayMovements(currentAccount.movements);
+  displaySummary(currentAccount.movements, currentAccount.interestRate);
+  displayBalance(currentAccount.movements);
+};
+
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
 
@@ -28,8 +34,32 @@ btnLogin.addEventListener('click', function (e) {
 
     labelWelcome.textContent = `Welcome ${currentAccount.owner}`;
 
-    displayMovements(currentAccount.movements);
-    displaySummary(currentAccount.movements, currentAccount.interestRate);
-    displayBalance(currentAccount.movements);
+    updateUI();
   }
+});
+
+btnTransfer.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  inputTransferTo;
+  inputTransferAmount;
+
+  const amount = +inputTransferAmount.value;
+  console.log(amount);
+
+  const receiverAccount = accounts.find(
+    (acc) => acc.username === inputTransferTo.value
+  );
+
+  if (
+    amount > 0 &&
+    currentAccount.balance >= amount &&
+    receiverAccount &&
+    receiverAccount.username !== currentAccount.username
+  ) {
+    receiverAccount.movements.push(amount);
+    currentAccount.movements.push(-amount);
+  }
+
+  updateUI();
 });

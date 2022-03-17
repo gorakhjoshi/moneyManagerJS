@@ -14,10 +14,10 @@ const displayMovements = (movements) => {
 };
 
 const displayBalance = (movements) => {
-  labelBalance.textContent = `${movements.reduce(
-    (acc, movement) => acc + movement,
-    0
-  )} €`;
+  const balance = movements.reduce((acc, movement) => acc + movement, 0);
+  currentAccount.balance = balance;
+
+  labelBalance.textContent = balance;
 };
 
 const displaySummary = (movements, rate) => {
