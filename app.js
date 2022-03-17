@@ -32,10 +32,6 @@ const accountOne = {
   pin: 1234,
 };
 
-// movements.reduce((acc, movement) => 300 + 1600, 0);
-// acc = 1900;
-// movement = 1600;
-
 const accountTwo = {
   movements: [1000, -600, 700, -300, 1300, -1100, 1600],
   owner: 'Shankar Poudel',
@@ -61,8 +57,6 @@ const createUsername = (accounts) => {
       .join('');
   });
 };
-
-const [{ movements, interestRate }] = accounts;
 
 const displayMovements = (movements) => {
   movements.forEach(function (mov, i) {
@@ -106,22 +100,25 @@ const displaySummary = (movements, rate) => {
 };
 
 createUsername(accounts);
-displayMovements(movements);
-displayBalance(movements);
-displaySummary(movements, interestRate);
 
-// btnLogin;
+let currentAccount;
 
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const currentAccount = accounts.find(
-    (account) => account.pin === +inputLoginPin.value
+  currentAccount = accounts.find(
+    (account) => account.username === inputLoginUsername.value
   );
 
-  console.log(labelWelcome);
+  if (currentAccount?.pin === +inputLoginPin.value) {
+    containerApp.style.opacity = 1;
 
-  if (currentAccount) {
+    inputLoginUsername.value = inputLoginPin.value = '';
+
     labelWelcome.textContent = `Welcome ${currentAccount.owner}`;
+
+    displayMovements(currentAccount.movements);
+    displaySummary(currentAccount.movements, currentAccount.interestRate);
+    displayBalance(currentAccount.movements);
   }
 });
